@@ -78,7 +78,7 @@
     "lodash": "^4.17.21",
     "prop-types": "^15.7.2",
     "svg-pan-zoom": "^3.6.1",
-    "viz.js": "2.1.2"
+    "viz.js": "^2.1.2"
   },
   "repository": {
     "type": "git",

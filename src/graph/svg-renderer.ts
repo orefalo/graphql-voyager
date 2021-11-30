@@ -33,11 +33,13 @@ export class SVGRender {
   renderSvg(typeGraph, displayOptions) {
     return this.vizPromise
       .then((viz) => {
+        //   console.log(viz);
         console.time('Rendering Graph');
         const dot = getDot(typeGraph, displayOptions);
         return viz.renderString(dot);
       })
       .then((rawSVG) => {
+        //  console.log(rawSVG);
         const svg = preprocessVizSVG(rawSVG);
         console.timeEnd('Rendering Graph');
         return svg;
