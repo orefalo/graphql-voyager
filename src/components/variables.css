@@ -31,16 +31,17 @@
   /* left panel: errors */
   --alert-color: #ff5555;
 
+  /* left and bottom: that's the color of the input 'line' */
   --input-underline-color: #ff79c6;
 
   --modal-bg-color: var(--dark-bg-color);
 
   --doc-panel-width: 320px;
   --type-info-popover-width: 320px;
-  /* --doc-panel-bg-color: var(--background-color); */
   --doc-panel-bg-color: #44475a;
   --doc-panel-item-stripe-color: rgba(158, 158, 158, 0.07);
-  --doc-panel-item-hover-color: rgba(214, 236, 238, 0.6);
+  /* left panel: that's the color of the hover */
+  --doc-panel-item-hover-color: #6272a4;
 
   --arg-default-color: #8be9fd;
   --arg-name-color: #ffb86c;

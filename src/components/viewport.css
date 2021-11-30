@@ -86,7 +86,6 @@ g.graph > polygon {
   & text {
     font-family: var(--base-font-family);
     fill: var(--field-name-color);
-
     display: none;
   }
 
