@@ -34,7 +34,6 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  margin-top: var(--panel-spacing);
   position: relative;
   color: var(--text-color);
   /* Overwrite min-height: https://drafts.csswg.org/css-flexbox/#min-size-auto */

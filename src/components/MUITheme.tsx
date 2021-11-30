@@ -6,22 +6,16 @@ export const theme = createMuiTheme({
     palette: {
         type: 'dark',
         primary: {
-
             // that the color of the input underline
-            light: "#ff79c6",
-            main: variables.secondaryColor,
-            dark: "#ff0000",
-            // contrastText: "#ff0000"
-
+            light: variables.inputUnderlineColor,
+            main: variables.fieldNameColor,
         },
         secondary: {
             main: variables.secondaryColor,
         },
         text: {
-            primary: "#f8f8f2",
-            secondary: "#6272a4",
-            disabled: "#ff0000",
-            hint: "#0f0"
+            primary: variables.textColor,
+            secondary: variables.fieldNameColor,
         }
     },
     typography: {

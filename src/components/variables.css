@@ -31,6 +31,8 @@
   /* left panel: errors */
   --alert-color: #ff5555;
 
+  --input-underline-color: #ff79c6;
+
   --modal-bg-color: var(--dark-bg-color);
 
   --doc-panel-width: 320px;
@@ -45,7 +47,7 @@
 
   /* entity: fill color of the entity */
   --node-fill-color: #44475a;
-  --node-header-color: var(--secondary-color);
+  --node-header-color: #6272a4;
   /* entity: color of the entity text */
   --node-header-text-color: #f8f8f2;
 

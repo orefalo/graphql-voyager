@@ -11,7 +11,7 @@
 .type-name {
   &.-input-obj,
   &.-object {
-    color: var(--link-color);
+    color: var(--node-header-color);
 
     &:hover {
       color: var(--link-hover-color);
