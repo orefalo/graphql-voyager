@@ -8,6 +8,7 @@
 * Schema is now either read from disk or provided as a parameter
 * Dependency updates
 * All credits remain to the original author & contributors
+* Merged [SVG caching by md5](https://github.com/APIs-guru/graphql-voyager/pull/197)
 
 ---
 
