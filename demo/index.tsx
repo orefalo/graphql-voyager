@@ -40,8 +40,8 @@ export default class Demo extends React.Component {
     public render() {
         const { changeSchemaModalOpen, introspection } = this.state;
 
-        const openChangeSchema = () =>
-            this.setState({ changeSchemaModalOpen: true });
+        // const openChangeSchema = () =>
+        //     this.setState({ changeSchemaModalOpen: true });
         const closeChangeSchema = () =>
             this.setState({ changeSchemaModalOpen: false });
 
