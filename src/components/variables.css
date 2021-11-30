@@ -1,6 +1,5 @@
 :root {
-  --monospace-font-family: 'Consolas', 'Inconsolata', 'Droid Sans Mono',
-    'Monaco', monospace;
+  --monospace-font-family: 'Consolas', 'Inconsolata', 'Droid Sans Mono', 'Monaco', monospace;
   --base-font-family: 'helvetica neue', helvetica, arial, sans-serif;
   --base-font-size: 14px;
   --spacing-unit: 5px;
@@ -8,38 +7,54 @@
   --panel-spacing: 15px;
   --icons-size: 24px;
 
-  --primary-color: #00bcd4;
-  --background-color: #fff;
-  --dark-bg-color: #0b2840;
+  /* accent color for selected items */
+  --primary-color: #8be9fd ;
+  /* that's the bg */
+  --background-color: #282a36;
+  --dark-bg-color: #00f;
   --highlight-color: var(--primary-color);
-  --secondary-color: #548f9e;
+  /* color of the entity */
+  --secondary-color: #6272a4;
   --logo-color: #27535e;
-  --link-color: #42a0dd;
-  --link-hover-color: #0262a0;
-  --field-name-color: #224d6f;
-  --builtin-color: #711c1c;
-  --text-color: #666;
-  --shadow-color: rgba(0, 0, 0, 0.1);
-  --alert-color: #b71c1c;
+  /* */
+  --link-hover-color: #8be9fd;
+  /* left panel: color of the field  */
+  --field-name-color: #bd93f9;
+  /* left panel: scalar color */
+  --builtin-color: #f1fa8c;
+   /* left panel/entity: link to entities */
+  --link-color: #f1fa8c;
+  /* left panel: description color */
+  --text-color: #f8f8f2;
+  /* --shadow-color: rgba(0, 0, 0, 0.1); */
+  --shadow-color: rgba(255, 255, 0, 0.1); 
+  /* left panel: errors */
+  --alert-color: #ff5555;
 
   --modal-bg-color: var(--dark-bg-color);
 
   --doc-panel-width: 320px;
   --type-info-popover-width: 320px;
-  --doc-panel-bg-color: var(--background-color);
+  /* --doc-panel-bg-color: var(--background-color); */
+  --doc-panel-bg-color: #44475a;
   --doc-panel-item-stripe-color: rgba(158, 158, 158, 0.07);
   --doc-panel-item-hover-color: rgba(214, 236, 238, 0.6);
 
-  --arg-default-color: #0b7fc7;
-  --arg-name-color: #c77f53;
+  --arg-default-color: #8be9fd;
+  --arg-name-color: #ffb86c;
 
-  --node-fill-color: #f6f8f8;
+  /* entity: fill color of the entity */
+  --node-fill-color: #44475a;
   --node-header-color: var(--secondary-color);
-  --node-header-text-color: white;
+  /* entity: color of the entity text */
+  --node-header-text-color: #f8f8f2;
 
-  --edge-color: color(var(--secondary-color) l(- 15%));
-  --selected-edge-color: red;
-  --selected-field-bg: rgba(255, 0, 0, 0.18);
+  /* entity: ok dracula - color of all entity relations*/
+  --edge-color: #bd93f9;
+  /* entity: ok dracula - color of the selected relation */
+  --selected-edge-color: #50fa7b;
+  /* entity: that is the color of the selection entity attribute */
+  --selected-field-bg: color(var(--selected-edge-color) blackness(25%));
 }
 
 @custom-media --small-viewport (max-width: 780px);

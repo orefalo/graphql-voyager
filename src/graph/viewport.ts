@@ -1,3 +1,5 @@
+import variables from '../components/variables.css';
+
 import * as _ from 'lodash';
 import * as svgPanZoom from 'svg-pan-zoom';
 import * as animate from '@f/animate';
@@ -41,6 +43,10 @@ export class Viewport {
 
     this.container.innerHTML = '';
     this.$svg = stringToSvg(svgString);
+    this.$svg.setAttribute(
+      'style',
+      'background-color:' + variables.backgroundColor,
+    );
     this.container.appendChild(this.$svg);
 
     // Allow the SVG dimensions to be computed

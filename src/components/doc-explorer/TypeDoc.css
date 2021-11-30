@@ -36,14 +36,15 @@
   flex: 1;
   margin-top: var(--panel-spacing);
   position: relative;
-
+  color: var(--text-color);
   /* Overwrite min-height: https://drafts.csswg.org/css-flexbox/#min-size-auto */
   min-height: 0;
 
   & > div {
     position: relative;
     z-index: 1;
-    background: white;
+    background: var(--background-color);
+    color: var(--text-color);
   }
 
   & > .loading {
