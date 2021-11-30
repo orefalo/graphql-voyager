@@ -1,5 +1,10 @@
 @import '../variables.css';
 
+.field-type {
+    fill: var(--primary-color);
+    
+}
+
 .type-link {
   fill: var(--link-color);
 }
@@ -11,7 +16,7 @@
 .type-name {
   &.-input-obj,
   &.-object {
-    color: var(--node-header-color);
+    color: var(--link-color);
 
     &:hover {
       color: var(--link-hover-color);
@@ -20,10 +25,10 @@
 
   &.-scalar,
   &.-built-in {
-    color: var(--builtin-color);
+    color: var(--primary-color);
 
     &:hover {
-      color: color(var(--builtin-color) l(- 10%));
+      color: color(var(--primary-color) l(- 10%));
     }
   }
 }

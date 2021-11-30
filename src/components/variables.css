@@ -9,7 +9,7 @@
 
   /* accent color for selected items */
   --primary-color: #8be9fd ;
-  /* that's the bg */
+  /* ui: that's the bg */
   --background-color: #282a36;
   --dark-bg-color: #00f;
   --highlight-color: var(--primary-color);
@@ -57,7 +57,7 @@
   /* entity: ok dracula - color of the selected relation */
   --selected-edge-color: #50fa7b;
   /* entity: that is the color of the selection entity attribute */
-  --selected-field-bg: color(var(--selected-edge-color) blackness(25%));
+  --selected-field-bg: color(var(--selected-edge-color) blackness(45%));
 }
 
 @custom-media --small-viewport (max-width: 780px);

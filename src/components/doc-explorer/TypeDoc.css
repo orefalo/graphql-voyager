@@ -3,12 +3,15 @@
 /* common type doc styling */
 .field-name {
   color: var(--field-name-color);
+  fill: var(--field-name-color);
+
 }
 
 .type-name + .field-name {
   &::before {
     content: '.';
     color: var(--text-color);
+    fill: var(--text-color);
   }
 }
 

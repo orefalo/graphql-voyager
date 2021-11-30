@@ -6,7 +6,6 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import { theme } from '../src/components/MUITheme';
 import { GraphQLVoyager } from '../src';
 
-import { IntrospectionModal } from './IntrospectionModal';
 import { defaultPreset } from './presets';
 
 import './components.css';
@@ -38,22 +37,17 @@ export default class Demo extends React.Component {
     }
 
     public render() {
-        const { changeSchemaModalOpen, introspection } = this.state;
+        const { introspection } = this.state;
 
         // const openChangeSchema = () =>
         //     this.setState({ changeSchemaModalOpen: true });
-        const closeChangeSchema = () =>
-            this.setState({ changeSchemaModalOpen: false });
+        // const closeChangeSchema = () =>
+        //     this.setState({ changeSchemaModalOpen: false });
 
         return (
             <MuiThemeProvider theme={theme}>
                 <GraphQLVoyager introspection={introspection}>
                 </GraphQLVoyager>
-                <IntrospectionModal
-                    open={changeSchemaModalOpen}
-                    onClose={closeChangeSchema}
-                    onChange={(introspection) => this.setState({ introspection })}
-                />
             </MuiThemeProvider>
         );
     }
@@ -69,6 +63,5 @@ function getQueryParams(): { [key: string]: string } {
     }
     return params;
 }
-
 
 render(<Demo />, document.getElementById('root'));
