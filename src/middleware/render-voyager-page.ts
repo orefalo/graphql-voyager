@@ -38,7 +38,7 @@ export default function renderVoyagerPage(options: MiddlewareOptions) {
 </head>
 <body>
   <main id="voyager">
-    <h1 style="text-align: center; color: #5d7e86;"> Loading... </h1>
+    <h1 style="text-align: center; color: #5d7e86;"></h1>
   </main>
   <script>
     window.addEventListener('load', function(event) {
