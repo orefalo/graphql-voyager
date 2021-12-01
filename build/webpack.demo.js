@@ -28,6 +28,7 @@ module.exports = function (_, { mode }) {
     },
     module: {
       rules: [
+        { test: /\.graphql?$/, loader: 'webpack-graphql-loader' },
         {
           test: /\.tsx?$/,
           use: 'ts-loader',
@@ -110,10 +111,10 @@ module.exports = function (_, { mode }) {
         filename: '[name].[hash].css',
       }),
 
-      new CopyWebpackPlugin([
-        { from: '**/*.png', context: './demo' },
-        { from: '**/*.ico', context: './demo' },
-      ]),
+      //   new CopyWebpackPlugin([
+      //     { from: '**/*.png', context: './demo' },
+      //     { from: '**/*.ico', context: './demo' },
+      //   ]),
     ],
   };
 };
