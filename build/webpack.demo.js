@@ -3,9 +3,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlMinimizerPlugin = require('html-minimizer-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
 const root = require('./helpers').root;
@@ -20,12 +21,21 @@ module.exports = function (_, { mode }) {
       extensions: ['.ts', '.tsx', '.mjs', '.js', '.json', '.css', '.svg'],
     },
     entry: ['./src/polyfills.ts', './demo/index.tsx'],
+    // OUTPUT
+    output: {
+      path: root('demo-dist'),
+      filename: '[name].js',
+      sourceMapFilename: '[name].[id].map',
+    },
+    // DEV SERVER
     devServer: {
       contentBase: root('demo'),
       watchContentBase: true,
       port: 9090,
       stats: 'errors-only',
     },
+
+    // OPTIMIZATIONS
     optimization: {
       minimizer: [
         new UglifyJsPlugin({
@@ -35,19 +45,38 @@ module.exports = function (_, { mode }) {
             },
           },
         }),
-        // new OptimizeCSSAssetsPlugin({
-        //   cssProcessorPluginOptions: {
-        //     preset: ['default', { discardComments: { removeAll: true } }],
-        //   },
-        // }),
-        new CssMinimizerPlugin(),
+        new OptimizeCSSAssetsPlugin({
+          cssProcessorPluginOptions: {
+            preset: ['default', { discardComments: { removeAll: true } }],
+          },
+        }),
       ],
     },
-    output: {
-      path: root('demo-dist'),
-      filename: '[name].js',
-      sourceMapFilename: '[name].[id].map',
-    },
+
+    //PLUGINS
+    plugins: [
+      new webpack.LoaderOptionsPlugin({
+        worker: {
+          output: {
+            filename: '[name].worker.js',
+          },
+        },
+      }),
+
+      new webpack.DefinePlugin({
+        VERSION: VERSION,
+      }),
+
+      new HtmlWebpackPlugin({
+        template: './demo/index.html',
+      }),
+
+      new ExtractTextPlugin({
+        filename: 'voyager.css',
+        allChunks: true,
+      }),
+    ],
+    //MODULES
     module: {
       rules: [
         { test: /\.graphql?$/, loader: 'webpack-graphql-loader' },
@@ -68,40 +97,19 @@ module.exports = function (_, { mode }) {
         {
           test: /\.css$/,
           exclude: /variables\.css$/,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {
-                name: '[name].css',
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  sourceMap: true,
+                },
               },
-            },
-            {
-              loader: 'extract-loader',
-            },
-            {
-              loader: 'css-loader?-url',
-            },
-            {
-              loader: 'postcss-loader',
-            },
-          ],
+              'postcss-loader?sourceMap',
+            ],
+          }),
         },
-        // {
-        //   test: /\.css$/,
-        //   exclude: /variables\.css$/,
-        //   use: ExtractTextPlugin.extract({
-        //     fallback: 'style-loader',
-        //     use: [
-        //       {
-        //         loader: 'css-loader',
-        //         options: {
-        //           sourceMap: true,
-        //         },
-        //       },
-        //       'postcss-loader',
-        //     ],
-        //   }),
-        // },
         {
           test: /variables\.css$/,
           loader: 'postcss-variables-loader?es5=1',
@@ -132,27 +140,5 @@ module.exports = function (_, { mode }) {
         },
       ],
     },
-
-    plugins: [
-      new webpack.LoaderOptionsPlugin({
-        worker: {
-          output: {
-            filename: '[name].worker.js',
-          },
-        },
-      }),
-
-      new webpack.DefinePlugin({
-        VERSION: VERSION,
-      }),
-
-      new HtmlWebpackPlugin({
-        template: './demo/index.html',
-      }),
-
-      new MiniCssExtractPlugin({
-        filename: '[name].css',
-      }),
-    ],
   };
 };

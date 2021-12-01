@@ -1,5 +1,5 @@
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-var OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const nodeExternals = require('webpack-node-externals')({
@@ -13,7 +13,21 @@ module.exports = (env = {}, { mode }) => ({
   performance: {
     hints: false,
   },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.mjs', '.js', '.json', '.css', '.svg'],
+  },
+  entry: ['./src/polyfills.ts', './src/index.tsx'],
+  // OUTPUT
+  output: {
+    path: root('dist'),
+    filename: env.lib ? 'voyager.lib.js' : 'voyager.min.js',
+    sourceMapFilename: '[file].map',
+    library: 'GraphQLVoyager',
+    libraryTarget: 'umd',
+    umdNamedDefine: true,
+  },
 
+  // OPTIMIZATIONS
   optimization: {
     minimizer: [
       new UglifyJsPlugin({
@@ -31,13 +45,7 @@ module.exports = (env = {}, { mode }) => ({
     ],
   },
 
-  resolve: {
-    extensions: ['.ts', '.tsx', '.mjs', '.js', '.json', '.css', '.svg'],
-    alias: {
-      clipboard: 'clipboard/dist/clipboard.min.js',
-    },
-  },
-
+  //EXTERNALS
   externals: env.lib
     ? nodeExternals
     : {
@@ -54,16 +62,7 @@ module.exports = (env = {}, { mode }) => ({
           amd: 'react-dom',
         },
       },
-  entry: ['./src/polyfills.ts', './src/index.tsx'],
-  output: {
-    path: root('dist'),
-    filename: env.lib ? 'voyager.lib.js' : 'voyager.min.js',
-    sourceMapFilename: '[file].map',
-    library: 'GraphQLVoyager',
-    libraryTarget: 'umd',
-    umdNamedDefine: true,
-  },
-
+  //PLUGINS
   plugins: [
     new webpack.DefinePlugin({
       VERSION: VERSION,
@@ -74,7 +73,7 @@ module.exports = (env = {}, { mode }) => ({
       allChunks: true,
     }),
   ],
-
+  //MODULES
   module: {
     rules: [
       {

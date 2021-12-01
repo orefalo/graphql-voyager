@@ -4,7 +4,8 @@
 
 Well, I got tired of trying to get this component working.
 
-This new version implements a proper separation of concerns: exit all the complex setup, cdns, versions mismatches, firewalls and dependencies with 3rd party middlewares.  
+This new version implements a proper separation of concerns: exit all the complex setup, cdns, versions mismatches, firewalls, dependencies with 3rd party middlewares and last but not least: Learning REACT!
+  
 The component is now super simple `getVoyager(sdl, displayOptions) => HTML`.  
 The returned HTML has no dependencies, no url, no links. It's one big fat HTML with everything in it - just send it to your browser to render Voyager
 
