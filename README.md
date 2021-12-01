@@ -4,14 +4,14 @@
 
 Well, I got tired of trying to get this component working.
 
-This new version implements a proper separation of concerns: exit all the complex setup, cdns, versions mismatches, firewalls and dependencies with 3rd party frameworks.  
-The component is now super simple `getVoyager(sdl, options) => HTML`.  
-The returned HTML has no dependencies, no url, no links. it's one big fat HTML with everything in it.
+This new version implements a proper separation of concerns: exit all the complex setup, cdns, versions mismatches, firewalls and dependencies with 3rd party middlewares.  
+The component is now super simple `getVoyager(sdl, displayOptions) => HTML`.  
+The returned HTML has no dependencies, no url, no links. It's one big fat HTML with everything in it - just send it to your browser to render Voyager
 
-Which mean:
+Which implicitly means:
 
 1. You need to fetch the SDL yourself!
-2. The need to build the glue code that sends the HTML back to the browser (aka middlewares)
+2. The need to build the glue code that sends the HTML back to the browser (aka middleware implementations)
 
 The new component also implements these changes:
 
@@ -21,7 +21,8 @@ The new component also implements these changes:
 * SDL Schema is now either read from disk or provided as a parameter
 * Dependency updates
 * All credits remain to the original author & contributors
-* Merged [SVG caching by md5](https://github.com/APIs-guru/graphql-voyager/pull/197)
+* [Use SVG Caching](https://github.com/APIs-guru/graphql-voyager/pull/197) - Merged
+* [Allows passing GraphQLSchema directly](https://github.com/APIs-guru/graphql-voyager/pull/146) - Partially Merged
 
 ---
 

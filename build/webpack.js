@@ -9,31 +9,12 @@ const nodeExternals = require('webpack-node-externals')({
 const root = require('./helpers').root;
 const VERSION = JSON.stringify(require('../package.json').version);
 
-// const BANNER = `GraphQL Voyager - Represent any GraphQL API as an interactive graph
-// -------------------------------------------------------------
-//   Version: ${VERSION}
-//   Repo: https://github.com/APIs-guru/graphql-voyager`;
-
 module.exports = (env = {}, { mode }) => ({
   performance: {
     hints: false,
   },
 
-  //   optimization: {
-  //     minimize: !env.lib,
-  //   },
-
   optimization: {
-    splitChunks: {
-      cacheGroups: {
-        styles: {
-          name: 'styles',
-          test: 'css/mini-extract',
-          chunks: 'all',
-          enforce: true,
-        },
-      },
-    },
     minimizer: [
       new UglifyJsPlugin({
         uglifyOptions: {
@@ -87,15 +68,11 @@ module.exports = (env = {}, { mode }) => ({
     new webpack.DefinePlugin({
       VERSION: VERSION,
     }),
-    // new MiniCssExtractPlugin({
-    //   filename: '[name].css',
-    // }),
+
     new ExtractTextPlugin({
       filename: 'voyager.css',
       allChunks: true,
     }),
-
-    // new webpack.BannerPlugin(BANNER),
   ],
 
   module: {
