@@ -19,7 +19,7 @@ export default class Demo extends React.Component {
 
         return (
             <MuiThemeProvider theme={theme}>
-                <GraphQLVoyager introspection={sdl}>
+                <GraphQLVoyager sdl={sdl}>
                 </GraphQLVoyager>
             </MuiThemeProvider>
         );

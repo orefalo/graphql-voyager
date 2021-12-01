@@ -1,4 +1,4 @@
-import { getIntrospectionQuery } from 'graphql/utilities';
+// import { getIntrospectionQuery } from 'graphql/utilities';
 
 import { getSchema, extractTypeId } from '../introspection';
 import { SVGRender, getTypeGraph } from '../graph/';
@@ -15,8 +15,9 @@ import Settings from './settings/Settings';
 
 import './Voyager.css';
 import './viewport.css';
+import { GraphQLSchema } from 'graphql';
 
-type IntrospectionProvider = (query: string) => Promise<any>;
+// type IntrospectionProvider = (query: string) => Promise<any>;
 
 export interface VoyagerDisplayOptions {
     rootType?: string;
@@ -43,7 +44,7 @@ function normalizeDisplayOptions(options) {
 }
 
 export interface VoyagerProps {
-    introspection: IntrospectionProvider | Object;
+    sdl: GraphQLSchema;
     displayOptions?: VoyagerDisplayOptions;
     hideDocs?: boolean;
     hideSettings?: boolean;
@@ -55,9 +56,8 @@ export interface VoyagerProps {
 
 export default class Voyager extends React.Component<VoyagerProps> {
     static propTypes = {
-        introspection: PropTypes.oneOfType([
-            PropTypes.func.isRequired,
-            PropTypes.object.isRequired,
+        sdl: PropTypes.oneOfType([
+            PropTypes.string.isRequired,
         ]).isRequired,
         displayOptions: PropTypes.shape({
             rootType: PropTypes.string,
@@ -101,35 +101,37 @@ export default class Voyager extends React.Component<VoyagerProps> {
     fetchIntrospection() {
         const displayOptions = normalizeDisplayOptions(this.props.displayOptions);
 
-        if (typeof this.props.introspection !== 'function') {
-            this.updateIntrospection(this.props.introspection, displayOptions);
-            return;
-        }
+        this.updateIntrospection(this.props.sdl, displayOptions);
 
-        let promise = this.props.introspection(getIntrospectionQuery());
+        // if (typeof this.props.introspection !== 'function') {
+        //     this.updateIntrospection(this.props.introspection, displayOptions);
+        //     return;
+        // }
 
-        if (!isPromise(promise)) {
-            throw new Error(
-                'SchemaProvider did not return a Promise for introspection.',
-            );
-        }
+        // let promise = this.props.introspection(getIntrospectionQuery());
 
-        this.setState({
-            introspectionData: null,
-            schema: null,
-            typeGraph: null,
-            displayOptions: null,
-            selectedTypeID: null,
-            selectedEdgeID: null,
-        });
+        // if (!isPromise(promise)) {
+        //     throw new Error(
+        //         'SchemaProvider did not return a Promise for introspection.',
+        //     );
+        // }
 
-        this.instospectionPromise = promise;
-        promise.then((introspectionData) => {
-            if (promise === this.instospectionPromise) {
-                this.instospectionPromise = null;
-                this.updateIntrospection(introspectionData, displayOptions);
-            }
-        });
+        // this.setState({
+        //     introspectionData: null,
+        //     schema: null,
+        //     typeGraph: null,
+        //     displayOptions: null,
+        //     selectedTypeID: null,
+        //     selectedEdgeID: null,
+        // });
+
+        // this.instospectionPromise = promise;
+        // promise.then((introspectionData) => {
+        //     if (promise === this.instospectionPromise) {
+        //         this.instospectionPromise = null;
+        //         this.updateIntrospection(introspectionData, displayOptions);
+        //     }
+        // });
     }
 
     updateIntrospection(introspectionData, displayOptions) {
@@ -156,7 +158,7 @@ export default class Voyager extends React.Component<VoyagerProps> {
     }
 
     componentDidUpdate(prevProps: VoyagerProps) {
-        if (this.props.introspection !== prevProps.introspection) {
+        if (this.props.sdl !== prevProps.sdl) {
             this.fetchIntrospection();
         } else if (this.props.displayOptions !== prevProps.displayOptions) {
             this.updateIntrospection(
@@ -272,7 +274,7 @@ export default class Voyager extends React.Component<VoyagerProps> {
     };
 }
 
-// Duck-type promise detection.
-function isPromise(value) {
-    return typeof value === 'object' && typeof value.then === 'function';
-}
+// // Duck-type promise detection.
+// function isPromise(value) {
+//     return typeof value === 'object' && typeof value.then === 'function';
+// }

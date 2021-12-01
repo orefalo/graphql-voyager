@@ -27,7 +27,6 @@ export const theme = createTheme({
                 width: '30px',
                 height: '15px',
                 padding: 0,
-
             },
         },
         MuiIconButton: {

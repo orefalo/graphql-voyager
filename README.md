@@ -2,13 +2,25 @@
 
 ## CHANGES
 
-* Dracula theme!!
+Well, I got tired of trying to get this component working.
+
+This new version implements a proper separation of concerns: exit all the complex setup, cdns, versions mismatches and dependencies with 3rd party frameworks.  
+The component is now super simple `getVoyager(sdl, options) => HTML`.  
+The returned HTML has no dependencies, no url, no links. it's one big fat HTML with everything in it.
+
+Which mean:
+
+1. You need to fetch the SDL yourself!
+2. The need to build the glue code that sends the HTML back to the browser (aka middlewares)
+
+The new component also implements these changes:
+
+* Dark mode: Dracula theme!!
 * Removed all the unecessary overlays
 * Removed Instrospection capabilities & associated popup
-* Schema is now either read from disk or provided as a parameter
+* SDL Schema is now either read from disk or provided as a parameter
 * Dependency updates
 * All credits remain to the original author & contributors
-* Added Fastify middleware
 * Merged [SVG caching by md5](https://github.com/APIs-guru/graphql-voyager/pull/197)
 
 ---

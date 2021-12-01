@@ -1,13 +1,13 @@
 const { version } = require('../package.json');
 
 export interface MiddlewareOptions {
-  endpointUrl: string;
+  sdl: string;
   displayOptions?: object;
   headersJS?: string;
 }
 
 export default function renderVoyagerPage(options: MiddlewareOptions) {
-  const { endpointUrl, displayOptions } = options;
+  const { sdl, displayOptions } = options;
   const headersJS = options.headersJS ? options.headersJS : '{}';
   return `
 <!DOCTYPE html>
@@ -42,28 +42,9 @@ export default function renderVoyagerPage(options: MiddlewareOptions) {
   </main>
   <script>
     window.addEventListener('load', function(event) {
-      function introspectionProvider(introspectionQuery) {
-        return fetch('${endpointUrl}', {
-          method: 'post',
-          headers: Object.assign({}, {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          }, ${headersJS}),
-          body: JSON.stringify({query: introspectionQuery }),
-          credentials: 'include',
-        }).then(function (response) {
-          return response.text();
-        }).then(function (responseBody) {
-          try {
-            return JSON.parse(responseBody);
-          } catch (error) {
-            return responseBody;
-          }
-        });
-      }
-
+      var sdl = "${sdl}"
       GraphQLVoyager.init(document.getElementById('voyager'), {
-        introspection: introspectionProvider,
+        sdl,
         displayOptions: ${JSON.stringify(displayOptions)},
       })
     })

@@ -1,10 +1,11 @@
 import * as _ from 'lodash';
 import {
-  buildClientSchema,
   introspectionFromSchema,
   lexicographicSortSchema,
   IntrospectionSchema,
   IntrospectionType,
+  buildSchema,
+  Source,
 } from 'graphql';
 import {
   SimplifiedIntrospection,
@@ -245,19 +246,19 @@ function assignTypesAndIDs(schema: SimplifiedIntrospection) {
 }
 
 export function getSchema(
-  introspection: any,
+  sdl: Source,
   sortByAlphabet: boolean,
   skipRelay: boolean,
   skipDeprecated: boolean,
 ) {
-  if (!introspection) return null;
+  if (!sdl) return null;
 
-  let schema = buildClientSchema(introspection.data);
+  let schema = buildSchema(sdl);
   if (sortByAlphabet) {
     schema = lexicographicSortSchema(schema);
   }
 
-  introspection = introspectionFromSchema(schema, { descriptions: true });
+  const introspection = introspectionFromSchema(schema, { descriptions: true });
   let simpleSchema = simplifySchema(introspection.__schema);
 
   assignTypesAndIDs(simpleSchema);
