@@ -44,7 +44,6 @@
     "graphql": "15.7.2",
     "html-webpack-plugin": "3.2.0",
     "mini-css-extract-plugin": "^1.6.2",
-    "optimize-css-assets-webpack-plugin": "^4.0.2",
     "postcss-cssnext": "3.1.1",
     "postcss-import": "12.0.1",
     "postcss-loader": "3.0.0",
@@ -65,7 +64,10 @@
     "webpack-cli": "3.3.1",
     "webpack-dev-server": "3.11.0",
     "webpack-graphql-loader": "^1.0.2",
-    "webpack-node-externals": "1.7.2"
+    "webpack-node-externals": "1.7.2",
+    "html-minimizer-webpack-plugin": "^3.3.2",
+    "css-minimizer-webpack-plugin": "^3.2.0",
+    "optimize-css-assets-webpack-plugin": "^6.0.1"
   },
   "peerDependencies": {
     "graphql": ">=14.0.0",

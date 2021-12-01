@@ -1,10 +1,12 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const ExtractTextPlugin = require('extract-text-webpack-plugin');
-// const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlMinimizerPlugin = require('html-minimizer-webpack-plugin');
+const path = require('path');
 
 const root = require('./helpers').root;
 const VERSION = JSON.stringify(require('../package.json').version);
@@ -33,11 +35,12 @@ module.exports = function (_, { mode }) {
             },
           },
         }),
-        new OptimizeCSSAssetsPlugin({
-          cssProcessorPluginOptions: {
-            preset: ['default', { discardComments: { removeAll: true } }],
-          },
-        }),
+        // new OptimizeCSSAssetsPlugin({
+        //   cssProcessorPluginOptions: {
+        //     preset: ['default', { discardComments: { removeAll: true } }],
+        //   },
+        // }),
+        new CssMinimizerPlugin(),
       ],
     },
     output: {
@@ -150,14 +153,6 @@ module.exports = function (_, { mode }) {
       new MiniCssExtractPlugin({
         filename: '[name].css',
       }),
-      //   new ExtractTextPlugin({
-      //     filename: '[name].[hash].css',
-      //   }),
-
-      //   new CopyWebpackPlugin([
-      //     { from: '**/*.png', context: './demo' },
-      //     { from: '**/*.ico', context: './demo' },
-      //   ]),
     ],
   };
 };

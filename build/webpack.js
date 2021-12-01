@@ -1,7 +1,5 @@
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
+var OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const nodeExternals = require('webpack-node-externals')({
@@ -89,13 +87,13 @@ module.exports = (env = {}, { mode }) => ({
     new webpack.DefinePlugin({
       VERSION: VERSION,
     }),
-    new MiniCssExtractPlugin({
-      //   filename: '[name].css',
-    }),
-    // new ExtractTextPlugin({
-    //   filename: 'voyager.css',
-    //   allChunks: true,
+    // new MiniCssExtractPlugin({
+    //   filename: '[name].css',
     // }),
+    new ExtractTextPlugin({
+      filename: 'voyager.css',
+      allChunks: true,
+    }),
 
     // new webpack.BannerPlugin(BANNER),
   ],
@@ -118,48 +116,21 @@ module.exports = (env = {}, { mode }) => ({
           },
         ],
       },
-      //   {
-      //     test: /\.css$/,
-      //     exclude: /variables\.css$/,
-      //     use: ExtractTextPlugin.extract({
-      //       fallback: 'style-loader',
-      //       use: [
-      //         {
-      //           loader: 'css-loader',
-      //           options: {
-      //             sourceMap: true,
-      //           },
-      //         },
-      //         'postcss-loader?sourceMap',
-      //       ],
-      //     }),
-      //   },
       {
         test: /\.css$/,
         exclude: /variables\.css$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].css',
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: true,
+              },
             },
-          },
-          {
-            loader: 'extract-loader',
-          },
-          //   {
-          //     loader: MiniCssExtractPlugin.loader,
-          //   },
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-            },
-          },
-          {
-            loader: 'postcss-loader?sourceMap',
-          },
-        ],
+            'postcss-loader?sourceMap',
+          ],
+        }),
       },
       {
         test: /variables\.css$/,
