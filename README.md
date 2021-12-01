@@ -4,7 +4,7 @@
 
 Well, I got tired of trying to get this component working.
 
-This new version implements a proper separation of concerns: exit all the complex setup, cdns, versions mismatches and dependencies with 3rd party frameworks.  
+This new version implements a proper separation of concerns: exit all the complex setup, cdns, versions mismatches, firewalls and dependencies with 3rd party frameworks.  
 The component is now super simple `getVoyager(sdl, options) => HTML`.  
 The returned HTML has no dependencies, no url, no links. it's one big fat HTML with everything in it.
 

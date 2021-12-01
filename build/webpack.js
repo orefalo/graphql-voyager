@@ -1,3 +1,7 @@
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const nodeExternals = require('webpack-node-externals')({
@@ -7,18 +11,45 @@ const nodeExternals = require('webpack-node-externals')({
 const root = require('./helpers').root;
 const VERSION = JSON.stringify(require('../package.json').version);
 
-const BANNER = `GraphQL Voyager - Represent any GraphQL API as an interactive graph
--------------------------------------------------------------
-  Version: ${VERSION}
-  Repo: https://github.com/APIs-guru/graphql-voyager`;
+// const BANNER = `GraphQL Voyager - Represent any GraphQL API as an interactive graph
+// -------------------------------------------------------------
+//   Version: ${VERSION}
+//   Repo: https://github.com/APIs-guru/graphql-voyager`;
 
 module.exports = (env = {}, { mode }) => ({
   performance: {
     hints: false,
   },
 
+  //   optimization: {
+  //     minimize: !env.lib,
+  //   },
+
   optimization: {
-    minimize: !env.lib,
+    splitChunks: {
+      cacheGroups: {
+        styles: {
+          name: 'styles',
+          test: 'css/mini-extract',
+          chunks: 'all',
+          enforce: true,
+        },
+      },
+    },
+    minimizer: [
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          output: {
+            comments: false,
+          },
+        },
+      }),
+      new OptimizeCSSAssetsPlugin({
+        cssProcessorPluginOptions: {
+          preset: ['default', { discardComments: { removeAll: true } }],
+        },
+      }),
+    ],
   },
 
   resolve: {
@@ -53,6 +84,22 @@ module.exports = (env = {}, { mode }) => ({
     libraryTarget: 'umd',
     umdNamedDefine: true,
   },
+
+  plugins: [
+    new webpack.DefinePlugin({
+      VERSION: VERSION,
+    }),
+    new MiniCssExtractPlugin({
+      //   filename: '[name].css',
+    }),
+    // new ExtractTextPlugin({
+    //   filename: 'voyager.css',
+    //   allChunks: true,
+    // }),
+
+    // new webpack.BannerPlugin(BANNER),
+  ],
+
   module: {
     rules: [
       {
@@ -71,21 +118,48 @@ module.exports = (env = {}, { mode }) => ({
           },
         ],
       },
+      //   {
+      //     test: /\.css$/,
+      //     exclude: /variables\.css$/,
+      //     use: ExtractTextPlugin.extract({
+      //       fallback: 'style-loader',
+      //       use: [
+      //         {
+      //           loader: 'css-loader',
+      //           options: {
+      //             sourceMap: true,
+      //           },
+      //         },
+      //         'postcss-loader?sourceMap',
+      //       ],
+      //     }),
+      //   },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                sourceMap: true,
-              },
-            },
-            'postcss-loader?sourceMap',
-          ],
-        }),
         exclude: /variables\.css$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].css',
+            },
+          },
+          {
+            loader: 'extract-loader',
+          },
+          //   {
+          //     loader: MiniCssExtractPlugin.loader,
+          //   },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+          {
+            loader: 'postcss-loader?sourceMap',
+          },
+        ],
       },
       {
         test: /variables\.css$/,
@@ -118,17 +192,4 @@ module.exports = (env = {}, { mode }) => ({
       },
     ],
   },
-
-  plugins: [
-    new webpack.DefinePlugin({
-      VERSION: VERSION,
-    }),
-
-    new ExtractTextPlugin({
-      filename: 'voyager.css',
-      allChunks: true,
-    }),
-
-    new webpack.BannerPlugin(BANNER),
-  ],
 });

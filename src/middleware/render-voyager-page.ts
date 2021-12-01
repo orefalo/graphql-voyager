@@ -30,25 +30,25 @@ export default function renderVoyagerPage(options: MiddlewareOptions) {
   <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/graphql-voyager@${version}/dist/voyager.css"
   />
-  <script src="https://cdn.jsdelivr.net/fetch/2.0.1/fetch.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/react@16/umd/react.production.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/react-dom@16/umd/react-dom.production.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/graphql-voyager@${version}/dist/voyager.min.js"></script>
+
 </head>
 <body>
   <main id="voyager">
     <h1 style="text-align: center; color: #5d7e86;"></h1>
   </main>
-  <script>
-    window.addEventListener('load', function(event) {
-      var sdl = "${sdl}"
-      GraphQLVoyager.init(document.getElementById('voyager'), {
-        sdl,
-        displayOptions: ${JSON.stringify(displayOptions)},
-      })
-    })
-  </script>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/react@16/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@16/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/graphql-voyager@${version}/dist/voyager.min.js"></script>
+<script>
+  window.addEventListener('load', function(event) {
+    var sdl = "${sdl}"
+    GraphQLVoyager.init(document.getElementById('voyager'), {
+      sdl,
+      displayOptions: ${JSON.stringify(displayOptions)},
+    })
+  })
+</script>
 </html>
 `;
 }

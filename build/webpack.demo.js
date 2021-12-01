@@ -1,7 +1,10 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const CopyWebpackPlugin = require('copy-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const root = require('./helpers').root;
 const VERSION = JSON.stringify(require('../package.json').version);
@@ -20,6 +23,22 @@ module.exports = function (_, { mode }) {
       watchContentBase: true,
       port: 9090,
       stats: 'errors-only',
+    },
+    optimization: {
+      minimizer: [
+        new UglifyJsPlugin({
+          uglifyOptions: {
+            output: {
+              comments: false,
+            },
+          },
+        }),
+        new OptimizeCSSAssetsPlugin({
+          cssProcessorPluginOptions: {
+            preset: ['default', { discardComments: { removeAll: true } }],
+          },
+        }),
+      ],
     },
     output: {
       path: root('demo-dist'),
@@ -46,19 +65,40 @@ module.exports = function (_, { mode }) {
         {
           test: /\.css$/,
           exclude: /variables\.css$/,
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-              {
-                loader: 'css-loader',
-                options: {
-                  sourceMap: true,
-                },
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                name: '[name].css',
               },
-              'postcss-loader',
-            ],
-          }),
+            },
+            {
+              loader: 'extract-loader',
+            },
+            {
+              loader: 'css-loader?-url',
+            },
+            {
+              loader: 'postcss-loader',
+            },
+          ],
         },
+        // {
+        //   test: /\.css$/,
+        //   exclude: /variables\.css$/,
+        //   use: ExtractTextPlugin.extract({
+        //     fallback: 'style-loader',
+        //     use: [
+        //       {
+        //         loader: 'css-loader',
+        //         options: {
+        //           sourceMap: true,
+        //         },
+        //       },
+        //       'postcss-loader',
+        //     ],
+        //   }),
+        // },
         {
           test: /variables\.css$/,
           loader: 'postcss-variables-loader?es5=1',
@@ -107,9 +147,12 @@ module.exports = function (_, { mode }) {
         template: './demo/index.html',
       }),
 
-      new ExtractTextPlugin({
-        filename: '[name].[hash].css',
+      new MiniCssExtractPlugin({
+        filename: '[name].css',
       }),
+      //   new ExtractTextPlugin({
+      //     filename: '[name].[hash].css',
+      //   }),
 
       //   new CopyWebpackPlugin([
       //     { from: '**/*.png', context: './demo' },
