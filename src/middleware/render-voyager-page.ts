@@ -8,7 +8,6 @@ export interface MiddlewareOptions {
 
 export default function renderVoyagerPage(options: MiddlewareOptions) {
   const { sdl, displayOptions } = options;
-  const headersJS = options.headersJS ? options.headersJS : '{}';
   return `
 <!DOCTYPE html>
 <html>
