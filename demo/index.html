@@ -74,6 +74,9 @@
   <body>
     <main id="voyager"></main>
   </body>
+  <script src="https://cdn.jsdelivr.net/npm/react@16/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@16/umd/react-dom.production.min.js"></script>
+  <script src="voyager.min.js"></script>
   <script>
     window.addEventListener('load', function (event) {
       const sdl = `schema {
@@ -163,7 +166,4 @@ union TestUnion = First | Second`;
       });
     });
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/react@16/umd/react.production.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/react-dom@16/umd/react-dom.production.min.js"></script>
-  <script src="voyager.min.js"></script>
 </html>

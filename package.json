@@ -6,7 +6,7 @@
   "types": "typings/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --config build/webpack.demo.js --hot --inline --mode=development",
+    "start:dev": "webpack-dev-server --config build/webpack.demo.js --hot --inline --mode=development",
     "clean:release": "rimraf dist",
     "clean:demo": "rimraf demo-dist",
     "bundle": "npm run bundle:lib && npm run bundle:standalone",
@@ -17,7 +17,10 @@
     "stats": "NODE_ENV=production webpack --json --mode=production --config build/webpack.js > stats.json",
     "prettier": "prettier --write --list-different .",
     "prettier:check": "prettier --check .",
-    "declarations": "tsc --emitDeclarationOnly -p tsconfig.lib.json"
+    "declarations": "tsc --emitDeclarationOnly -p tsconfig.lib.json",
+    "minifyhtml": "cd demo && tml-minifier-terser  -minify-css 1 --minify-js 1 --use-short-doctype --collapse-whitespace index.html > index1.html",
+    "inline-stylesheets": "cd demo && inline-stylesheets index1.html .",
+    "inline-scripts": "cd demo && inline-scripts index1.html ."
   },
   "license": "MIT",
   "devDependencies": {
@@ -35,7 +38,6 @@
     "@types/react-dom": "16.9.8",
     "@types/webpack": "4.41.23",
     "babel-loader": "8.2.3",
-    "copy-webpack-plugin": "5.0.2",
     "css-loader": "2.1.1",
     "extract-loader": "^5.1.0",
     "extract-text-webpack-plugin": "4.0.0-beta.0",
@@ -64,9 +66,9 @@
     "webpack-dev-server": "3.11.0",
     "webpack-graphql-loader": "^1.0.2",
     "webpack-node-externals": "1.7.2",
-    "html-minimizer-webpack-plugin": "^3.3.2",
-    "css-minimizer-webpack-plugin": "^3.2.0",
-    "optimize-css-assets-webpack-plugin": "^6.0.1"
+    "optimize-css-assets-webpack-plugin": "^6.0.1",
+    "inline-scripts": "^1.7.4",
+    "html-minifier-terser": "^6.1.0"
   },
   "peerDependencies": {
     "graphql": ">=14.0.0",
