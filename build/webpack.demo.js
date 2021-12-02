@@ -16,7 +16,7 @@ module.exports = function (_, { mode }) {
     resolve: {
       extensions: ['.ts', '.tsx', '.mjs', '.js', '.json', '.css', '.svg'],
     },
-    entry: ['./src/polyfills.ts', './demo/index.tsx'],
+    entry: ['./src/polyfills.ts', './src/index.tsx'],
     // OUTPUT
     output: {
       path: root('demo-dist'),
