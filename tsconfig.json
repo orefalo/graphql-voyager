@@ -28,5 +28,5 @@
     "./src/**/*.tsx",
     "./manual-types.d.ts",
     "demo/**/*.tsx"
-  ]
+, "index.tsx"  ]
 }

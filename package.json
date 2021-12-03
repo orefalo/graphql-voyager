@@ -7,13 +7,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "webpack-dev-server --config build/webpack.demo.js --hot --inline --mode=development",
+    "clean": "run-s clean:*",
     "clean:release": "rimraf dist",
     "clean:demo": "rimraf demo-dist",
-    "bundle": "npm run bundle:lib && npm run bundle:standalone",
+    "bundle": "run-s bundle:*",
     "bundle:lib": "webpack --env.lib --mode=production --config build/webpack.js",
     "bundle:standalone": "webpack --mode=production --config build/webpack.js -p",
+    "bundledemo": "run-s bundledemo:*",
+    "bundledemo:1": "npm run clean:demo",
+    "bundledemo:2": "NODE_ENV=production webpack -p --config build/webpack.demo.js",
+    "bundledemo:3": "npm run clean:demo && NODE_ENV=production webpack -p --config build/webpack.demo.js",
     "build:release": "npm run bundle && npm run declarations",
-    "build:demo": "npm run clean:demo && NODE_ENV=production webpack -p --config build/webpack.demo.js",
     "stats": "NODE_ENV=production webpack --json --mode=production --config build/webpack.js > stats.json",
     "prettier": "prettier --write --list-different .",
     "prettier:check": "prettier --check .",
@@ -68,7 +72,8 @@
     "webpack-node-externals": "1.7.2",
     "optimize-css-assets-webpack-plugin": "^6.0.1",
     "inline-scripts": "^1.7.4",
-    "html-minifier-terser": "^6.1.0"
+    "html-minifier-terser": "^6.1.0",
+    "npm-run-all": "4.1.5"
   },
   "peerDependencies": {
     "graphql": ">=14.0.0",

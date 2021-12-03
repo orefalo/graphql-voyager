@@ -2,8 +2,8 @@ import * as React from 'react';
 import { render } from 'react-dom';
 
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import { theme } from '../src/components/MUITheme';
-import { GraphQLVoyager } from '../src';
+import { theme } from './src/components/MUITheme';
+import { GraphQLVoyager } from './src';
 
 export default class Demo extends React.Component {
     state = {

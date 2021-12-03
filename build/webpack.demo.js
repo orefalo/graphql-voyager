@@ -25,7 +25,7 @@ module.exports = function (_, { mode }) {
     },
     // DEV SERVER
     devServer: {
-      contentBase: root('demo'),
+      contentBase: root('src'),
       watchContentBase: true,
       port: 9090,
       stats: 'errors-only',
