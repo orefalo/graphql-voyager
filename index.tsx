@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { theme } from './src/components/MUITheme';
-import { GraphQLVoyager } from './src';
+import { Voyager } from './src/components';
 
 export default class Demo extends React.Component {
     state = {
@@ -19,8 +19,8 @@ export default class Demo extends React.Component {
 
         return (
             <MuiThemeProvider theme={theme}>
-                <GraphQLVoyager sdl={sdl}>
-                </GraphQLVoyager>
+                <Voyager sdl={sdl}>
+                </Voyager>
             </MuiThemeProvider>
         );
     }
