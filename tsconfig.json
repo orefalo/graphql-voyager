@@ -28,5 +28,5 @@
     "./src/**/*.tsx",
     "./manual-types.d.ts",
     "demo/**/*.tsx"
-, "index.tsx"  ]
+, "index.tsx", "src/graph/get-viz.js-worker.js"  ]
 }

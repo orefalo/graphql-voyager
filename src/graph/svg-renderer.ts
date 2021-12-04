@@ -1,17 +1,19 @@
 import * as _ from 'lodash';
 import { getDot } from './dot';
 import hash from 'object-hash';
+//@ts-ignore
+import VizWorker from 'worker-loader!./get-viz.js-worker.js';
 
 import {
   forEachNode,
-  loadWorker as defaultLoadWorker,
+  //   loadWorker as defaultLoadWorker,
   stringToSvg,
 } from '../utils/';
 
-import { WorkerCallback } from '../utils/types';
+// import { WorkerCallback } from '../utils/types';
 
-import Viz from 'viz.js';
-import defaultWorkerURI from 'viz.js/full.render.js';
+import Viz from '@aduh95/viz.js';
+// import defaultWorkerURI from 'viz.js/full.render.js';
 
 const RelayIconSvg = require('!!svg-as-symbol-loader?id=RelayIcon!../components/icons/relay-icon.svg');
 const DeprecatedIconSvg = require('!!svg-as-symbol-loader?id=DeprecatedIcon!../components/icons/deprecated-icon.svg');
@@ -19,16 +21,17 @@ const svgns = 'http://www.w3.org/2000/svg';
 const xlinkns = 'http://www.w3.org/1999/xlink';
 
 export class SVGRender {
-  vizPromise: any;
+  //   vizPromise: any;
+  viz: Viz;
 
-  constructor(
-    workerURI: string,
-    loadWorker: WorkerCallback = defaultLoadWorker,
-  ) {
-    this.vizPromise = loadWorker(
-      workerURI || defaultWorkerURI,
-      !workerURI,
-    ).then((worker) => new Viz({ worker }));
+  constructor() {
+    // loadWorker: WorkerCallback = defaultLoadWorker, // workerURI: string,
+    if (this.viz === undefined) {
+      this.viz = new Viz({ worker: new VizWorker() });
+    }
+    // this.vizPromise = loadWorker().then((worker) => new Viz({ worker }));
+    //   workerURI || defaultWorkerURI,
+    //   !workerURI,
   }
 
   renderSvg(typeGraph, displayOptions) {
@@ -41,19 +44,15 @@ export class SVGRender {
       return Promise.resolve(cachedSVG);
     }
 
-    return this.vizPromise
-      .then((viz) => {
-        console.time('Rendering Graph');
-        const dot = getDot(typeGraph, displayOptions);
-        return viz.renderString(dot);
-      })
-      .then((rawSVG) => {
-        const svg = preprocessVizSVG(rawSVG);
-        console.timeEnd('Rendering Graph');
-        localStorage.setItem('latestHash', typeGraphMd5);
-        localStorage.setItem('latestSVG', svg);
-        return svg;
-      });
+    console.time('Rendering Graph');
+    const dot = getDot(typeGraph, displayOptions);
+    this.viz.renderString(dot).then((rawSVG) => {
+      const svg = preprocessVizSVG(rawSVG);
+      console.timeEnd('Rendering Graph');
+      localStorage.setItem('latestHash', typeGraphMd5);
+      localStorage.setItem('latestSVG', svg);
+      return svg;
+    });
   }
 }
 

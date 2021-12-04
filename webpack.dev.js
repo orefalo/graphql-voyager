@@ -1,7 +1,7 @@
 const path = require('path');
 
 const webpack = require('webpack');
-
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -15,7 +15,16 @@ module.exports = function (_, { mode }) {
       hints: false,
     },
     resolve: {
-      extensions: ['.ts', '.tsx', '.mjs', '.js', '.json', '.css', '.svg'],
+      extensions: [
+        '.ts',
+        '.tsx',
+        '.mjs',
+        '.js',
+        '.json',
+        '.css',
+        '.svg',
+        '.wasm',
+      ],
     },
     entry: ['./src/polyfills.ts', './src/index.tsx'],
     // OUTPUT
@@ -54,6 +63,8 @@ module.exports = function (_, { mode }) {
 
     //PLUGINS
     plugins: [
+      new webpack.ProgressPlugin(),
+      new CleanWebpackPlugin(),
       new webpack.DefinePlugin({ IS_BROWSER: true }),
       new webpack.LoaderOptionsPlugin({
         worker: {

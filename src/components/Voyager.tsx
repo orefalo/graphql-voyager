@@ -89,8 +89,8 @@ export default class Voyager extends React.Component<VoyagerProps> {
     constructor(props) {
         super(props);
         this.svgRenderer = new SVGRender(
-            this.props.workerURI,
-            this.props.loadWorker,
+            // this.props.workerURI,
+            // this.props.loadWorker,
         );
     }
 
