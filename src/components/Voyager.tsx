@@ -4,8 +4,8 @@ import { getSchema, extractTypeId } from '../introspection';
 import { SVGRender, getTypeGraph } from '../graph/';
 import { WorkerCallback } from '../utils/types';
 
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { theme } from './MUITheme';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 
@@ -88,10 +88,7 @@ export default class Voyager extends React.Component<VoyagerProps> {
 
     constructor(props) {
         super(props);
-        this.svgRenderer = new SVGRender(
-            // this.props.workerURI,
-            // this.props.loadWorker,
-        );
+        this.svgRenderer = new SVGRender();
     }
 
     componentDidMount() {
@@ -103,35 +100,6 @@ export default class Voyager extends React.Component<VoyagerProps> {
 
         this.updateIntrospection(this.props.sdl, displayOptions);
 
-        // if (typeof this.props.introspection !== 'function') {
-        //     this.updateIntrospection(this.props.introspection, displayOptions);
-        //     return;
-        // }
-
-        // let promise = this.props.introspection(getIntrospectionQuery());
-
-        // if (!isPromise(promise)) {
-        //     throw new Error(
-        //         'SchemaProvider did not return a Promise for introspection.',
-        //     );
-        // }
-
-        // this.setState({
-        //     introspectionData: null,
-        //     schema: null,
-        //     typeGraph: null,
-        //     displayOptions: null,
-        //     selectedTypeID: null,
-        //     selectedEdgeID: null,
-        // });
-
-        // this.instospectionPromise = promise;
-        // promise.then((introspectionData) => {
-        //     if (promise === this.instospectionPromise) {
-        //         this.instospectionPromise = null;
-        //         this.updateIntrospection(introspectionData, displayOptions);
-        //     }
-        // });
     }
 
     updateIntrospection(introspectionData, displayOptions) {
@@ -274,7 +242,3 @@ export default class Voyager extends React.Component<VoyagerProps> {
     };
 }
 
-// // Duck-type promise detection.
-// function isPromise(value) {
-//     return typeof value === 'object' && typeof value.then === 'function';
-// }

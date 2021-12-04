@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import classNames from 'classnames';
 
 import './LoadingAnimation.css';
@@ -9,7 +9,7 @@ interface LoadingAnimationProps {
 
 export default class LoadingAnimation extends React.Component<
     LoadingAnimationProps
-    > {
+> {
     render() {
         const { loading } = this.props;
         return (

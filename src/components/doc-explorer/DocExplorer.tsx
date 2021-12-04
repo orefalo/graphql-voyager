@@ -1,6 +1,6 @@
 import { isNode } from '../../graph';
 
-import * as React from 'react';
+import React from 'react';
 import TypeList from './TypeList';
 import TypeDoc from './TypeDoc';
 import FocusTypeButton from './FocusTypeButton';

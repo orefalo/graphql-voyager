@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import RootSelector from './RootSelector';
 import { InputLabel } from '@material-ui/core';

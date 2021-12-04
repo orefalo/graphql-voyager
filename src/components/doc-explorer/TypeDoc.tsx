@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import * as React from 'react';
+import React from 'react';
 import classNames from 'classnames';
 
 import './TypeDoc.css';
