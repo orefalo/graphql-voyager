@@ -3,9 +3,9 @@ const path = require('path');
 const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+// const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const VERSION = JSON.stringify(require('./package.json').version);
 
@@ -30,9 +30,9 @@ module.exports = function (_, { mode }) {
     // OUTPUT
     output: {
       path: path.resolve(__dirname, 'dist'),
-      //filename: '[name].js',
-      //sourceMapFilename: '[name].[id].map',
-      filename: 'bundle.js',
+      filename: '[name].js',
+      //   //sourceMapFilename: '[name].[id].map',
+      //   filename: 'bundle.js',
     },
     devtool: 'inline-source-map',
     node: false,
@@ -112,6 +112,12 @@ module.exports = function (_, { mode }) {
               test: /\.tsx?$/,
               use: 'ts-loader',
               exclude: [/\.(spec|e2e)\.ts$/],
+            },
+            {
+              test: /\.(js|mjs)$/,
+              use: {
+                loader: 'babel-loader',
+              },
             },
             {
               test: /\.css$/,

@@ -16,6 +16,7 @@ Which implicitly means:
 
 The new component also implements these changes:
 
+* Swtiched to @aduh95/viz.js which overcomes memory limitations from previous versions
 * Dark mode: Dracula theme!!
 * Removed all the unecessary overlays
 * Removed Instrospection capabilities & associated popup
