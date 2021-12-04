@@ -4,6 +4,9 @@ import { render } from 'react-dom';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { theme } from './components/MUITheme';
 import { Voyager } from './components';
+
+import "./index.css"
+
 //@ts-ignore - handled by webpack
 import defaultGraphql from "./default.graphql";
 
