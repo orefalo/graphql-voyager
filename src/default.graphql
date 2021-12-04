@@ -1,0 +1,73 @@
+schema {
+  query: Test
+  mutation: MutationType
+  subscription: SubscriptionType
+}
+
+type First implements TestInterface {
+  """Common name string for UnionFirst."""
+  name: String
+  first: [TestInterface]
+}
+
+"""This is a simple mutation type"""
+type MutationType {
+  """Set the string field"""
+  setString(value: String): String
+}
+
+type Second implements TestInterface {
+  """Common name string for UnionFirst."""
+  name: String
+  second: TestInterface
+}
+
+"""This is a simple subscription type"""
+type SubscriptionType {
+  """Subscribe to the test type"""
+  subscribeToTest(id: String): Test
+}
+
+type Test {
+  """`test` field from `Test` type."""
+  test: Test
+
+  """> union field from Test type, block-quoted."""
+  union: TestUnion
+  """id field from Test type."""
+  id: ID
+  """Is this a test schema? Sure it is."""
+  isTest: Boolean
+  hasArgs(string: String, int: Int, float: Float, boolean: Boolean, id: ID, enum: TestEnum, object: TestInput, listString: [String], listInt: [Int], listFloat: [Float], listBoolean: [Boolean], listID: [ID], listEnum: [TestEnum], listObject: [TestInput]): String
+}
+enum TestEnum {
+  """A rosy color"""
+  RED
+  """The color of martians and slime"""
+  GREEN
+  """A feeling you might have if you can't use GraphQL"""
+  BLUE
+}
+input TestInput {
+  """Repeats back this string"""
+  string: String
+  int: Int
+  float: Float
+  boolean: Boolean
+  id: ID
+  enum: TestEnum
+  object: TestInput
+  listString: [String]
+  listInt: [Int]
+  listFloat: [Float]
+  listBoolean: [Boolean]
+  listID: [ID]
+  listEnum: [TestEnum]
+  listObject: [TestInput]
+}
+"""Test interface."""
+interface TestInterface {
+  """Common name string."""
+  name: String
+}
+union TestUnion = First | Second

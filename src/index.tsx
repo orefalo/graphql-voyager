@@ -1,22 +1,31 @@
-// import React from 'react';
-// import * as ReactDOM from 'react-dom';
-// import { Voyager, VoyagerProps } from './components';
-
-// function init(element: HTMLElement, options: VoyagerProps) {
-//   ReactDOM.render(<Voyager {...options} />, element);
-// }
-
-// export { Voyager as GraphQLVoyager, Voyager, init };
-
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { render } from 'react-dom';
 
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { theme } from './components/MUITheme';
+import { Voyager } from './components';
+//@ts-ignore - handled by webpack
+import defaultGraphql from "./default.graphql";
 
-ReactDOM.render(
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>,
-    document.getElementById('root')
-);
+export default class Demo extends React.Component {
+    state = {
+        sdl: defaultGraphql
+    };
+
+    constructor(props) {
+        super(props);
+    }
+
+    public render() {
+        const { sdl } = this.state;
+
+        return (
+            <MuiThemeProvider theme={theme}>
+                <Voyager sdl={sdl}>
+                </Voyager>
+            </MuiThemeProvider>
+        );
+    }
+}
+
+render(<Demo />, document.getElementById('root'));
