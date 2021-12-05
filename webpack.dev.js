@@ -123,7 +123,7 @@ module.exports = function (_, { mode }) {
             {
               test: /\.css$/,
               exclude: /variables\.css$/,
-              use: ['style-loader', 'css-loader', 'postcss-loader?sourceMap'],
+              use: ['style-loader', 'css-loader', 'postcss-loader'],
             },
             // {
             //   test: /\.css$/,
@@ -143,7 +143,7 @@ module.exports = function (_, { mode }) {
             // },
             {
               test: /variables\.css$/,
-              loader: 'postcss-variables-loader?es5=1',
+              loader: 'postcss-variables-loader',
             },
             {
               test: /\.svg$/,
