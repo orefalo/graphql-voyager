@@ -27,6 +27,7 @@ module.exports = function (_, { mode }) {
         '.wasm',
       ],
     },
+    target: 'web',
     entry: ['./src/polyfills.ts', './src/index.tsx'],
     // OUTPUT
     output: {
