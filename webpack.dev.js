@@ -103,11 +103,11 @@ module.exports = function (_, { mode }) {
       rules: [
         {
           oneOf: [
-            {
-              test: /\.wasm$/,
-              type: 'javascript/auto',
-              use: { loader: 'file-loader' },
-            },
+            // {
+            //   test: /\.wasm$/,
+            //   type: 'javascript/auto',
+            //   use: { loader: 'file-loader' },
+            // },
             { test: /\.graphql?$/, loader: 'webpack-graphql-loader' },
             {
               test: /\.tsx?$/,

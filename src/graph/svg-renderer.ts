@@ -2,7 +2,9 @@ import * as _ from 'lodash';
 import { getDot } from './dot';
 import hash from 'object-hash';
 //@ts-ignore
-import VizWorker from 'worker-loader!./get-viz.js-worker.js';
+//import VizWorker from 'worker-loader!./get-viz.js-worker.js';
+
+import getWorker from '@aduh95/viz.js/worker';
 
 import {
   forEachNode,
@@ -27,7 +29,8 @@ export class SVGRender {
   constructor() {
     // loadWorker: WorkerCallback = defaultLoadWorker, // workerURI: string,
     if (this.viz === undefined) {
-      this.viz = new Viz({ worker: new VizWorker() });
+      const worker = getWorker();
+      this.viz = new Viz({ worker });
     }
     // this.vizPromise = loadWorker().then((worker) => new Viz({ worker }));
     //   workerURI || defaultWorkerURI,
