@@ -85,7 +85,16 @@ export default {
     }),
   ],
   resolve: {
-    extensions: ['.ts', '.tsx', '.mjs', '.js', '.json', '.css', '.svg'],
+    extensions: [
+      '.ts',
+      '.tsx',
+      '.mjs',
+      '.js',
+      '.json',
+      '.css',
+      '.svg',
+      '.wasm',
+    ],
     fallback: { process: false },
   },
   output: {
