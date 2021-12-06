@@ -7,7 +7,7 @@
   "types": "typings/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "webpack serve --hot --config webpack.dev.mjs",
+    "start:dev": "webpack serve --config webpack.dev.mjs",
     "build:dev": "NODE_ENV=development webpack --config webpack.dev.mjs --mode=development",
     "build:prod": "NODE_ENV=production webpack --config webpack.prod.mjs --mode=production",
     "clean": "run-s clean:*",

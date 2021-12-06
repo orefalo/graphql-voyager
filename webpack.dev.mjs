@@ -9,7 +9,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 export default {
   mode: 'development',
   target: 'web',
-  entry: ['./src/polyfills.ts', './src/index.tsx'],
+  entry: ['./src/index.tsx'],
   devtool: 'inline-source-map',
   module: {
     rules: [
@@ -86,12 +86,14 @@ export default {
   ],
   resolve: {
     extensions: ['.ts', '.tsx', '.mjs', '.js', '.json', '.css', '.svg'],
+    fallback: { process: false },
   },
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
-    contentBase: './dist',
+    hot: true,
+    // contentBase: path.resolve(__dirname, 'dist'),
   },
 };
