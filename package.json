@@ -7,8 +7,9 @@
   "types": "typings/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --config webpack.dev.js --hot --inline --mode=development",
-    "build:dev": "NODE_ENV=development webpack --config webpack.dev.js --mode=development",
+    "start:dev": "webpack serve --hot --config webpack.dev.mjs",
+    "build:dev": "NODE_ENV=development webpack --config webpack.dev.mjs --mode=development",
+    "build:prod": "NODE_ENV=production webpack --config webpack.prod.mjs --mode=production",
     "clean": "run-s clean:*",
     "clean:release": "rimraf dist",
     "clean:demo": "rimraf demo-dist",

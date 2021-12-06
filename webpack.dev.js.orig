@@ -125,22 +125,6 @@ module.exports = function (_, { mode }) {
               exclude: /variables\.css$/,
               use: ['style-loader', 'css-loader', 'postcss-loader'],
             },
-            // {
-            //   test: /\.css$/,
-            //   exclude: /variables\.css$/,
-            //   use: ExtractTextPlugin.extract({
-            //     fallback: 'style-loader',
-            //     use: [
-            //       {
-            //         loader: 'css-loader',
-            //         options: {
-            //           sourceMap: true,
-            //         },
-            //       },
-            //       'postcss-loader?sourceMap',
-            //     ],
-            //   }),
-            // },
             {
               test: /variables\.css$/,
               loader: 'postcss-variables-loader',
