@@ -1,6 +1,7 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import clean from 'clean-webpack-plugin';
+
 import webpack from 'webpack';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -79,6 +80,9 @@ export default {
       hash: true,
       template: './src/index.html',
     }),
+    // postCssPresetEnv({
+    //   browsers: 'last 2 versions',
+    // }),
     new webpack.ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],
       process: 'process',
@@ -101,8 +105,17 @@ export default {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
+  experiments: {
+    asyncWebAssembly: true,
+    syncWebAssembly: true,
+  },
   devServer: {
     hot: true,
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    compress: false,
+    port: 9000,
     // contentBase: path.resolve(__dirname, 'dist'),
   },
 };
