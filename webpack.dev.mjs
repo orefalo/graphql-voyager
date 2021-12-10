@@ -15,6 +15,17 @@ export default {
   module: {
     rules: [
       {
+        test: /\.render\.browser\.js$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'voyager.worker.js',
+            },
+          },
+        ],
+      },
+      {
         test: /^worker-loader!/,
         use: [
           {
@@ -89,16 +100,7 @@ export default {
     }),
   ],
   resolve: {
-    extensions: [
-      '.ts',
-      '.tsx',
-      '.mjs',
-      '.js',
-      '.json',
-      '.css',
-      '.svg',
-      '.wasm',
-    ],
+    extensions: ['.ts', '.tsx', '.mjs', '.js', '.json', '.css', '.svg'],
     fallback: { process: false },
   },
   output: {

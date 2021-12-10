@@ -30,5 +30,5 @@
     "./manual-types.d.ts",
     "demo/**/*.tsx",
     "index.tsx"
-, "src/graph/get-viz.js-worker.js" ]
+, "src/graph/get-viz.js-worker.mjs", "src/graph/get-viz.js-worker.js" ]
 }
