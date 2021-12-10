@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 import { getDot } from './dot';
 import hash from 'object-hash';
 //@ts-ignore
-import VizWorker from 'worker-loader!./get-viz.js-worker';
+import VizWorker from './get-viz.js-worker';
 
 // import getWorker from '@aduh95/viz.js/worker';
 
@@ -12,7 +12,6 @@ import {
   stringToSvg,
 } from '../utils/';
 
-
 import Viz from '@aduh95/viz.js';
 
 const RelayIconSvg = require('!!svg-as-symbol-loader?id=RelayIcon!../components/icons/relay-icon.svg');
@@ -21,23 +20,17 @@ const svgns = 'http://www.w3.org/2000/svg';
 const xlinkns = 'http://www.w3.org/1999/xlink';
 
 export class SVGRender {
-
   viz: Viz;
 
   constructor() {
-
     if (this.viz === undefined) {
-        this.viz = new Viz({ worker: new VizWorker() });
+      this.viz = new Viz({ worker: new VizWorker() });
     }
-      
+
     // if (this.viz === undefined) {
     //   const worker = getWorker();
     //   this.viz = new Viz({ worker });
     // }
-      
-      
-      
-
   }
 
   renderSvg(typeGraph, displayOptions) {
